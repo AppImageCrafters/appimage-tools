@@ -13,6 +13,7 @@ def main():
 
     parser_sign = subparsers.add_parser('sign', help='sign help')
     parser_sign.add_argument("--key", help="Key to be used", required=True)
+    parser_sign.add_argument("--append", action="store_true", help="Append the new signature to the existent ones")
     parser_sign.add_argument("target", help="AppImage file")
 
     args = parser.parse_args()
@@ -21,7 +22,8 @@ def main():
         verify_signature(args.target)
 
     if args.command == 'sign':
-        create_signature(args.key, args.target)
+        create_signature(args.key, args.target, args.append)
+        verify_signature(args.target)
 
 
 if __name__ == "__main__":
