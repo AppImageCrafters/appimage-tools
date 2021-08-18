@@ -7,16 +7,15 @@ import bson
 from sign.common import read_signatures_offset, read_file_into_fifo
 
 
-def sign_appimage(key, target):
+def create_signature(key, target):
     signatures_offset = read_signatures_offset(target)
-    _sign_bundle(target, key, signatures_offset)
-
-
-def _sign_bundle(output_filename, keyid, signatures_offset):
     signature = _generate_bundle_signature_using_gpg(
-        keyid, output_filename, signatures_offset
+        key, target, signatures_offset
     )
+    _sign_bundle(target, key, signatures_offset, signature)
 
+
+def _sign_bundle(output_filename, keyid, signatures_offset, signature):
     encoded_signatures = bson.dumps(
         {
             "signatures": [

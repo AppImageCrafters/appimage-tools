@@ -5,7 +5,7 @@ import tempfile
 from sign.common import read_signatures_offset, read_file_into_fifo, read_signatures
 
 
-def verify_gpg_signature(target, signature):
+def check_appimage_signature(target, signature):
     # file chunks will be written here
     fifo_path = tempfile.NamedTemporaryFile().name
     os.mkfifo(fifo_path)
@@ -33,7 +33,7 @@ def verify_signature(target):
     signatures = read_signatures(target)
     for signature in signatures:
         if signature["method"] == "gpg":
-            verify_gpg_signature(target, signature)
+            check_appimage_signature(target, signature)
             continue
 
         print(f"Signature method not supported {signature['method']}")

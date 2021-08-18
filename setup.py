@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     entry_points={
         "console_scripts": [
-            "appimage-sign = sign.__main__:main",
+            "appimage = cli.__main__:main",
         ]
     },
     url="https://github.com/AppImageCrafters/appimage-tools",

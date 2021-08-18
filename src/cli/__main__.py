@@ -1,12 +1,12 @@
 import argparse
 
-from sign.create import sign_appimage
-from sign.verify import verify_signature
+from sign.create import create_signature
+from sign.check import verify_signature
 
 
 def main():
     parser = argparse.ArgumentParser(description="AppImage Signatures management tool")
-    subparsers = parser.add_subparsers(help='sub-command help', dest='command')
+    subparsers = parser.add_subparsers(help='sub-command help', dest='command', required=True)
 
     parser_verify = subparsers.add_parser('verify', help='verify help')
     parser_verify.add_argument("target", help="AppImage file")
@@ -21,7 +21,7 @@ def main():
         verify_signature(args.target)
 
     if args.command == 'sign':
-        sign_appimage(args.key, args.target)
+        create_signature(args.key, args.target)
 
 
 if __name__ == "__main__":
